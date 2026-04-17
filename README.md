@@ -1,35 +1,78 @@
-<h1 align="left">Olá, eu sou Daniel 👋</h1>
+<div align="center">
 
-<p align="left">
-  CEO & Fundador da <strong>PazConcepts</strong> — agência de branding e design.<br/>
-  Desenvolvedor mobile focado em <strong>React Native CLI</strong>, construindo apps B2B reais para o mercado brasileiro.<br/>
-  Onde design encontra código.
+<h1>Daniel Paz</h1>
+
+<p>
+  <strong>CEO & Founder @ PazConcepts</strong> · Mobile Developer · Brand Designer
 </p>
 
-<picture align="center">
+<p>
+Construo produtos digitais onde <strong>design e código se encontram</strong>.<br/>
+Durante o dia dirijo a <a href="https://instagram.com/pazzdaniel">PazConcepts</a> — agência especializada em identidade visual e branding.<br/>
+Nas horas vagas desenvolvo apps mobile B2B em <strong>React Native CLI</strong> para o mercado brasileiro.
+</p>
+
+<p>
+  <img src="https://komarev.com/ghpvc/?username=Danpazexe&style=flat-square&color=7c3aed&label=PROFILE+VIEWS" alt="profile views" />
+</p>
+
+</div>
+
+---
+
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Danpazexe/Danpazexe/output/github-contribution-grid-snake-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Danpazexe/Danpazexe/output/github-contribution-grid-snake-dark.svg">
-  <img align="center" alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/Danpazexe/Danpazexe/output/github-contribution-grid-snake.svg">
+  <img width="100%" alt="snake animation" src="https://raw.githubusercontent.com/Danpazexe/Danpazexe/output/github-contribution-grid-snake.svg">
 </picture>
 
 ---
 
 ### 🛠️ Tech Stack
 
+**📱 Mobile & Frontend**
+
 <div align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="30" alt="javascript logo" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="30" alt="typescript logo" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="30" alt="react logo" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" height="30" alt="android logo" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" height="30" alt="androidstudio logo" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="30" alt="java logo" />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" height="30" alt="firebase logo" />
+  <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" height="30" alt="React Native" />
+  <img width="6" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" height="30" alt="TypeScript" />
+  <img width="6" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" height="30" alt="JavaScript" />
+  <img width="6" />
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" height="30" alt="Android" />
+  <img width="6" />
+  <img src="https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=androidstudio&logoColor=white" height="30" alt="Android Studio" />
+</div>
+
+<br/>
+
+**🗄️ Backend & Database**
+
+<div align="left">
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" height="30" alt="Supabase" />
+  <img width="6" />
+  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" height="30" alt="Firebase" />
+  <img width="6" />
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" height="30" alt="Java" />
+</div>
+
+<br/>
+
+**🎨 Design & Branding**
+
+<div align="left">
+  <img src="https://img.shields.io/badge/Photoshop-31A8FF?style=for-the-badge&logo=adobephotoshop&logoColor=white" height="30" alt="Photoshop" />
+  <img width="6" />
+  <img src="https://img.shields.io/badge/Illustrator-FF9A00?style=for-the-badge&logo=adobeillustrator&logoColor=white" height="30" alt="Illustrator" />
+</div>
+
+---
+
+### 📊 GitHub Stats
+
+<div align="center">
+  <img height="160" src="https://github-readme-stats.vercel.app/api?username=Danpazexe&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" alt="GitHub Stats" />
+  <img height="160" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Danpazexe&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" />
 </div>
 
 ---
@@ -37,10 +80,23 @@
 ### 📬 Contato
 
 <div align="left">
-  <img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="youtube logo" />
-  <img src="https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="instagram logo" />
-  <img src="https://img.shields.io/static/v1?message=Twitch&logo=twitch&label=&color=9146FF&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="twitch logo" />
-  <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo" />
-  <img src="https://img.shields.io/static/v1?message=Gmail&logo=gmail&label=&color=D14836&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="gmail logo" />
-  <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="linkedin logo" />
+  <a href="https://instagram.com/pazzdaniel">
+    <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" height="35" alt="Instagram" />
+  </a>
+  <img width="6" />
+  <a href="#">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" height="35" alt="LinkedIn" />
+  </a>
+  <img width="6" />
+  <a href="#">
+    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" height="35" alt="Gmail" />
+  </a>
+  <img width="6" />
+  <a href="#">
+    <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" height="35" alt="YouTube" />
+  </a>
+  <img width="6" />
+  <a href="#">
+    <img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white" height="35" alt="Discord" />
+  </a>
 </div>
