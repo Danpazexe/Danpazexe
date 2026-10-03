@@ -1,0 +1,83 @@
+name: Resumo diário dos projetos
+
+# Todo dia às 7h (America/Fortaleza = 10h UTC) abre uma issue com o estado
+# de cada projeto: último deploy de produção na Vercel, commits das últimas
+# 24h, PRs abertos e alertas de segurança. Fecha a issue do dia anterior.
+#
+# Precisa do secret RESUMO_TOKEN: um fine-grained PAT com acesso de LEITURA
+# aos repositórios abaixo (Contents, Deployments, Pull requests, Commit
+# statuses, Dependabot alerts). A issue em si é criada com o GITHUB_TOKEN.
+on:
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+
+jobs:
+  resumo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Montar resumo
+        env:
+          GH_TOKEN: ${{ secrets.RESUMO_TOKEN }}
+          REPOS: >-
+            PitSpace-web DietSpace-web ElaraSpace-web PazConcept-web
+            PerformX GestaoHub-web github-readme-stats
+        run: |
+          set -u
+          OWNER=Danpazexe
+          DESDE=$(date -u -d '24 hours ago' +%Y-%m-%dT%H:%M:%SZ)
+          ATENCAO=""
+          {
+            echo "| Projeto | Deploy produção | Último commit | Commits 24h | PRs abertos | Vulns high/critical |"
+            echo "|---|---|---|---|---|---|"
+          } > corpo.md
+
+          for R in $REPOS; do
+            BR=$(gh api repos/$OWNER/$R --jq .default_branch 2>/dev/null || echo main)
+
+            # Último deploy de produção publicado pela integração da Vercel
+            STATUS_URL=$(gh api "repos/$OWNER/$R/deployments?environment=Production&per_page=1" --jq '.[0].statuses_url // empty' 2>/dev/null)
+            ESTADO=$([ -n "$STATUS_URL" ] && gh api "$STATUS_URL?per_page=1" --jq '.[0].state // "?"' 2>/dev/null || echo "?")
+            case "$ESTADO" in
+              success) DEPLOY="✅ ok" ;;
+              failure|error) DEPLOY="❌ $ESTADO"; ATENCAO="$ATENCAO\n- **$R**: último deploy de produção falhou (o site segue na versão anterior)" ;;
+              in_progress|queued|pending) DEPLOY="⏳ $ESTADO" ;;
+              *) DEPLOY="— sem dados" ;;
+            esac
+
+            ULTIMO=$(gh api "repos/$OWNER/$R/commits/$BR" --jq '"\(.commit.committer.date[0:10]) — \(.commit.message | split("\n")[0] | .[0:50])"' 2>/dev/null | sed 's/|/\\|/g')
+            N24=$(gh api "repos/$OWNER/$R/commits?sha=$BR&since=$DESDE&per_page=100" --jq length 2>/dev/null || echo "?")
+            PRS=$(gh api "repos/$OWNER/$R/pulls?state=open&per_page=100" --jq length 2>/dev/null || echo "?")
+            VULNS=$(gh api "repos/$OWNER/$R/dependabot/alerts?state=open&per_page=100" \
+              --jq '[.[] | select(.security_advisory.severity == "high" or .security_advisory.severity == "critical")] | length' 2>/dev/null || echo "?")
+            if [ "$VULNS" != "?" ] && [ "$VULNS" -gt 0 ]; then
+              ATENCAO="$ATENCAO\n- **$R**: $VULNS vulnerabilidade(s) high/critical abertas — [ver alertas](https://github.com/$OWNER/$R/security/dependabot)"
+            fi
+
+            echo "| [$R](https://github.com/$OWNER/$R) | $DEPLOY | $ULTIMO | $N24 | [$PRS](https://github.com/$OWNER/$R/pulls) | $VULNS |" >> corpo.md
+          done
+
+          {
+            echo
+            echo "## 🚨 Precisa da sua atenção"
+            if [ -n "$ATENCAO" ]; then printf '%b\n' "$ATENCAO"; else echo "Nada — tudo em ordem. ✨"; fi
+            echo
+            echo "_Gerado automaticamente pelo workflow \`resumo-diario.yml\`._"
+          } >> corpo.md
+          cat corpo.md
+
+      - name: Publicar issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh label create resumo-diario --color 0E8A16 --description "Resumo diário automático" 2>/dev/null || true
+          for N in $(gh issue list --label resumo-diario --state open --json number --jq '.[].number'); do
+            gh issue close "$N" --comment "Substituída pelo resumo de hoje."
+          done
+          gh issue create --label resumo-diario \
+            --title "📋 Resumo diário — $(TZ=America/Fortaleza date +%d/%m/%Y)" \
+            --body-file corpo.md
