@@ -275,8 +275,8 @@ def main():
     pasta = Path(__file__).parent
     for nome, t in TEMAS.items():
         (pasta / f"banner-{nome}.svg").write_text(banner(t), encoding="utf-8")
-        (pasta / f"stack-{nome}.svg").write_text(stack(t), encoding="utf-8")
-        print("ok", f"banner-{nome}.svg", f"stack-{nome}.svg")
+        (pasta / f"stack-icones-{nome}.svg").write_text(stack(t), encoding="utf-8")
+        print("ok", f"banner-{nome}.svg", f"stack-icones-{nome}.svg")
 
 
 if __name__ == "__main__":
