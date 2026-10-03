@@ -56,9 +56,9 @@ Gosto de cuidar do produto inteiro: da marca e da interface até o banco de dado
 ## Stack
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/stack-light.svg">
-  <img width="100%" alt="Web: TypeScript, React 19, Next.js 16, Vite, Tailwind CSS 4, shadcn/ui, TanStack Query, Zustand, Motion, PWA. Mobile: React Native CLI, React Navigation, Reanimated, Android e iOS. Backend e dados: PostgreSQL, Prisma 7, Supabase, Neon, Auth.js, Zod, Node.js, Express. Integrações: Pix, NFC-e, WhatsApp, Telegram, Resend, MCP. Qualidade: Vitest, Playwright, pgTAP, Jest, Maestro, ESLint, Prettier. Infra: Vercel, GitHub Actions, Docker, Sentry. Design: identidade visual, branding, Figma, Illustrator, Photoshop." src="assets/stack-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-icones-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/stack-icones-light.svg">
+  <img width="100%" alt="Web: TypeScript, React 19, Next.js 16, Vite, Tailwind CSS 4, shadcn/ui, TanStack Query, Zustand, Motion, PWA. Mobile: React Native CLI, React Navigation, Reanimated, Android e iOS. Backend e dados: PostgreSQL, Prisma 7, Supabase, Neon, Auth.js, Zod, Node.js, Express. Integrações: Pix, NFC-e, WhatsApp, Telegram, Resend, MCP. Qualidade: Vitest, Playwright, pgTAP, Jest, Maestro, ESLint, Prettier. Infra: Vercel, GitHub Actions, Docker, Sentry. Design: identidade visual, branding, Figma, Illustrator, Photoshop." src="assets/stack-icones-light.svg">
 </picture>
 
 ## Números
