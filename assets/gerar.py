@@ -5,6 +5,7 @@ Edite PAPEIS e SISTEMAS abaixo e rode de novo. Fontes do sistema (sem webfont:
 o GitHub serve o SVG como <img>, que não carrega fontes externas).
 """
 
+import json
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -134,15 +135,91 @@ def banner(t: dict) -> str:
 
 # ─── Card de stack ──────────────────────────────────────────────────────────
 # Só o que aparece de verdade nos repositórios (levantamento de 03/10/2026).
+# Cada item: (rótulo, ícones). Ícone = slug do simple-icons (assets/icones.json,
+# licença CC0) ou ("Sigla", "#cor") para marcas que o simple-icons não tem.
 STACK = [
-    ("Web", ["TypeScript", "React 19", "Next.js 16", "Vite", "Tailwind CSS 4", "shadcn/ui · Radix", "TanStack Query", "Zustand", "Motion", "PWA · Web Push"]),
-    ("Mobile", ["React Native CLI", "React Navigation", "Reanimated", "Android · iOS", "op-sqlite", "Lottie"]),
-    ("Backend & dados", ["PostgreSQL", "Prisma 7", "Supabase", "RLS · Realtime", "Edge Functions", "Neon", "Auth.js", "Zod", "Node.js", "Express"]),
-    ("Integrações", ["Pix · Mercado Pago", "NFC-e", "WhatsApp", "Telegram bots", "Resend", "MCP"]),
-    ("Qualidade", ["Vitest", "Playwright", "pgTAP", "Jest", "Maestro", "Testing Library", "ESLint", "Prettier"]),
-    ("Infra", ["Vercel", "GitHub Actions", "Docker", "Sentry", "Vercel Cron · Blob"]),
-    ("Design", ["Identidade visual", "Branding", "Figma", "Illustrator", "Photoshop"]),
+    ("Web", [
+        ("TypeScript", ["typescript"]), ("React 19", ["react"]), ("Next.js 16", ["nextdotjs"]),
+        ("Vite", ["vite"]), ("Tailwind CSS 4", ["tailwindcss"]), ("shadcn/ui · Radix", ["shadcnui", "radixui"]),
+        ("TanStack Query", ["reactquery"]), ("Zustand", [("Zu", "#443E38")]), ("Motion", [("M", "#FFF312")]),
+        ("PWA · Web Push", ["pwa"]),
+    ]),
+    ("Mobile", [
+        ("React Native CLI", ["react"]), ("React Navigation", [("RN", "#6B52AE")]), ("Reanimated", [("Re", "#001A72")]),
+        ("Android · iOS", ["android", "apple"]), ("op-sqlite", ["sqlite"]), ("Lottie", ["lottiefiles"]),
+    ]),
+    ("Backend & dados", [
+        ("PostgreSQL", ["postgresql"]), ("Prisma 7", ["prisma"]), ("Supabase", ["supabase"]),
+        ("Edge Functions", ["deno"]), ("Neon", ["neon"]), ("Auth.js", [("A", "#7C3AED")]), ("Zod", ["zod"]),
+        ("Node.js", ["nodedotjs"]), ("Express", ["express"]),
+    ]),
+    ("Integrações", [
+        ("Pix · Mercado Pago", ["pix", "mercadopago"]), ("NFC-e", [("NF", "#1E7A3A")]), ("WhatsApp", ["whatsapp"]),
+        ("Telegram bots", ["telegram"]), ("Resend", ["resend"]), ("MCP", ["modelcontextprotocol"]),
+    ]),
+    ("Qualidade", [
+        ("Vitest", ["vitest"]), ("Playwright", [("Pw", "#2EAD33")]), ("pgTAP", ["postgresql"]), ("Jest", ["jest"]),
+        ("Maestro", [("Ma", "#5E3BEE")]), ("Testing Library", ["testinglibrary"]), ("ESLint", ["eslint"]),
+        ("Prettier", ["prettier"]),
+    ]),
+    ("Infra", [
+        ("Vercel", ["vercel"]), ("GitHub Actions", ["githubactions"]), ("Docker", ["docker"]),
+        ("Sentry", ["sentry"]), ("Vercel Cron · Blob", ["vercel"]),
+    ]),
+    ("Design", [
+        ("Identidade visual", [("◆", "#7C3AED")]), ("Branding", [("✦", "#E879F9")]), ("Figma", ["figma"]),
+        ("Illustrator", [("Ai", "#FF9A00")]), ("Photoshop", [("Ps", "#31A8FF")]),
+    ]),
 ]
+
+ICONES = json.loads((Path(__file__).parent / "icones.json").read_text(encoding="utf-8"))
+ICONE = 16  # px
+
+
+def luminancia(hexcor: str) -> float:
+    c = [int(hexcor.lstrip("#")[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+    c = [v / 12.92 if v <= 0.03928 else ((v + 0.055) / 1.055) ** 2.4 for v in c]
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+
+
+def contraste(a: str, b: str) -> float:
+    la, lb = sorted((luminancia(a), luminancia(b)), reverse=True)
+    return (la + 0.05) / (lb + 0.05)
+
+
+def misturar(a: str, b: str, k: float) -> str:
+    ca = [int(a.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    cb = [int(b.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    return "#" + "".join(f"{round(x + (y - x) * k):02x}" for x, y in zip(ca, cb))
+
+
+def cor_legivel(marca: str, fundo_chip: str, texto: str) -> str:
+    # Mantém o tom da marca, só puxando em direção à cor do texto até ler bem:
+    # verde vivo escurece no tema claro. Logo sem cor (Next.js, Vercel: preto puro)
+    # vira a cor do texto inteira — meio-termo cinza parece desbotado.
+    rgb = [int(marca.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4)]
+    if max(rgb) - min(rgb) < 40 and contraste(marca, fundo_chip) < 2.6:
+        return texto
+    for k in [i / 20 for i in range(21)]:
+        cor = misturar(marca, texto, k)
+        if contraste(cor, fundo_chip) >= 2.6:
+            return cor
+    return texto
+
+
+def icone(ic, x: float, y: float, t: dict) -> str:
+    if isinstance(ic, str):
+        d = ICONES[ic]
+        cor = cor_legivel("#" + d["hex"], t["card"], t["texto"])
+        esc = ICONE / 24
+        return f'<path transform="translate({x:.1f} {y:.1f}) scale({esc})" fill="{cor}" d="{d["path"]}"/>'
+    sigla, cor = ic
+    cor = cor_legivel(cor, t["card"], t["texto"])
+    fs = 9 if len(sigla) > 1 else 11
+    return (
+        f'<rect x="{x:.1f}" y="{y:.1f}" width="{ICONE}" height="{ICONE}" rx="4" fill="{cor}" fill-opacity="0.16" stroke="{cor}" stroke-opacity="0.55"/>'
+        f'<text x="{x + ICONE / 2:.1f}" y="{y + ICONE / 2 + 3.3:.1f}" text-anchor="middle" class="sigla" fill="{cor}" font-size="{fs}">{escape(sigla)}</text>'
+    )
 
 
 def largura_texto(txt: str, px: float = 13) -> float:
@@ -156,32 +233,35 @@ SW = 900  # mais estreito que o banner: no GitHub o card é reduzido menos e o t
 
 
 def stack(t: dict) -> str:
-    x0, rot_w, pad_x, gap, chip_h, linha_h = 32, 138, 11, 7, 28, 36
+    x0, rot_w, pad_x, gap, chip_h, linha_h = 32, 138, 10, 7, 30, 38
     max_x = SW - 32
     corpo = []
     y = 74
     for cat, itens in STACK:
-        corpo.append(f'<text x="{x0}" y="{y + 18}" class="cat">{escape(cat)}</text>')
+        corpo.append(f'<text x="{x0}" y="{y + 19}" class="cat">{escape(cat)}</text>')
         x = x0 + rot_w
-        linhas = 1
-        for item in itens:
-            w = largura_texto(item) + pad_x * 2
+        for rotulo, icones in itens:
+            w_icones = len(icones) * ICONE + (len(icones) - 1) * 4
+            w = pad_x + w_icones + 7 + largura_texto(rotulo) + pad_x
             if x + w > max_x:
                 x = x0 + rot_w
                 y += linha_h
-                linhas += 1
-            corpo.append(
-                f'<g><rect x="{x:.1f}" y="{y}" width="{w:.1f}" height="{chip_h}" rx="8" fill="{t["card"]}" stroke="{t["borda"]}"/>'
-                f'<text x="{x + w / 2:.1f}" y="{y + 18.5}" class="chip" text-anchor="middle">{escape(item)}</text></g>'
-            )
+            partes = [f'<rect x="{x:.1f}" y="{y}" width="{w:.1f}" height="{chip_h}" rx="8" fill="{t["card"]}" stroke="{t["borda"]}"/>']
+            ix = x + pad_x
+            for ic in icones:
+                partes.append(icone(ic, ix, y + (chip_h - ICONE) / 2, t))
+                ix += ICONE + 4
+            partes.append(f'<text x="{ix + 3:.1f}" y="{y + 19.5}" class="chip">{escape(rotulo)}</text>')
+            corpo.append("<g>" + "".join(partes) + "</g>")
             x += w + gap
-        y += linha_h + 14
+        y += linha_h + 12
     h = y + 10
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{SW}" height="{h}" viewBox="0 0 {SW} {h}" role="img" aria-label="Tecnologias usadas nos projetos">
   <title>Tecnologias usadas nos projetos</title>
   <style>
     .cat {{ font-family: {SANS}; font-size: 14px; font-weight: 600; fill: {t['texto2']}; }}
     .chip {{ font-family: {SANS}; font-size: 13px; fill: {t['texto']}; }}
+    .sigla {{ font-family: {SANS}; font-weight: 700; }}
     .titulo {{ font-family: {MONO}; font-size: 13px; letter-spacing: 2px; fill: {t['destaque']}; }}
   </style>
   <rect x="0.5" y="0.5" width="{SW - 1}" height="{h - 1}" rx="15.5" fill="{t['fundo']}" stroke="{t['borda']}"/>

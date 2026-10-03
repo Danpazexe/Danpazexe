@@ -8,7 +8,6 @@
   <a href="https://www.pazconcept.com.br"><img src="https://img.shields.io/badge/pazconcept.com.br-7c3aed?style=flat-square&logo=vercel&logoColor=white" alt="pazconcept.com.br" /></a>
   <a href="https://instagram.com/pazzdaniel"><img src="https://img.shields.io/badge/@pazzdaniel-E4405F?style=flat-square&logo=instagram&logoColor=white" alt="Instagram" /></a>
   <a href="mailto:thothowe@gmail.com"><img src="https://img.shields.io/badge/e--mail-D14836?style=flat-square&logo=gmail&logoColor=white" alt="E-mail" /></a>
-  <img src="https://komarev.com/ghpvc/?username=Danpazexe&style=flat-square&color=7c3aed&label=visitas" alt="visitas ao perfil" />
 </p>
 
 ## Sobre mim
