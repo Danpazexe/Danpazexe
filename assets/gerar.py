@@ -134,7 +134,7 @@ def banner(t: dict) -> str:
 
 
 # ─── Card de stack ──────────────────────────────────────────────────────────
-# Só o que aparece de verdade nos repositórios (levantamento de 03/10/2026).
+# Só o que aparece de verdade nos repositórios (levantamento de 31/10/2026).
 # Cada item: (rótulo, ícones). Ícone = slug do simple-icons (assets/icones.json,
 # licença CC0) ou ("Sigla", "#cor") para marcas que o simple-icons não tem.
 STACK = [
@@ -151,10 +151,11 @@ STACK = [
     ("Backend & dados", [
         ("PostgreSQL", ["postgresql"]), ("Prisma 7", ["prisma"]), ("Supabase", ["supabase"]),
         ("Edge Functions", ["deno"]), ("Neon", ["neon"]), ("Auth.js", [("A", "#7C3AED")]), ("Zod", ["zod"]),
-        ("Node.js", ["nodedotjs"]), ("Express", ["express"]),
+        ("Node.js", ["nodedotjs"]), ("Express", ["express"]), ("Python · Flask", ["python", "flask"]),
     ]),
     ("Integrações", [
         ("Pix · Mercado Pago", ["pix", "mercadopago"]), ("NFC-e", [("NF", "#1E7A3A")]), ("WhatsApp", ["whatsapp"]),
+        ("Oracle · WinThor", [("Or", "#C74634")]),
         ("Telegram bots", ["telegram"]), ("Resend", ["resend"]), ("MCP", ["modelcontextprotocol"]),
     ]),
     ("Qualidade", [
@@ -275,8 +276,8 @@ def main():
     pasta = Path(__file__).parent
     for nome, t in TEMAS.items():
         (pasta / f"banner-{nome}.svg").write_text(banner(t), encoding="utf-8")
-        (pasta / f"stack-icones-{nome}.svg").write_text(stack(t), encoding="utf-8")
-        print("ok", f"banner-{nome}.svg", f"stack-icones-{nome}.svg")
+        (pasta / f"stack-{nome}.svg").write_text(stack(t), encoding="utf-8")
+        print("ok", f"banner-{nome}.svg", f"stack-{nome}.svg")
 
 
 if __name__ == "__main__":
