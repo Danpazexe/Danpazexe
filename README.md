@@ -21,7 +21,7 @@ Gosto de cuidar do produto inteiro: da marca e da interface até o banco de dado
 - 🧱 **Hoje:** SaaS em **Next.js 16 + PostgreSQL** (Prisma ou Supabase), rodando na Vercel
 - 📱 **Mobile:** apps em **React Native CLI** para Android e iOS
 - 🧪 **Qualidade:** mais de 1.000 arquivos de teste entre Vitest, Playwright e pgTAP
-- 🇧🇷 **Feito para o Brasil:** Pix, NFC-e, WhatsApp e alertas no Telegram
+- 🇧🇷 **Feito para o Brasil:** Pix, NFC-e, WhatsApp, alertas no Telegram e integração com ERP (WinThor/Oracle)
 
 ## O que estou construindo
 
@@ -31,6 +31,7 @@ Gosto de cuidar do produto inteiro: da marca e da interface até o banco de dado
 | 🟢 | **[PerformX](https://performx.pazconcept.com.br)** | Plataforma para personal trainer: biblioteca de exercícios, montador de ficha e app do aluno com timer | Next.js · Prisma · Neon · PWA |
 | 🟡 | **[PitSpace](https://pitspace.pazconcept.com.br)** | Gestão de oficinas mecânicas: OS pela placa, orçamento aprovado pelo cliente via link, estoque e caixa | Next.js · Prisma · Supabase · S3 |
 | 🟡 | **[ElaraSpace](https://elaraspace.pazconcept.com.br)** | Ocorrências de entrega para distribuidoras: PWA offline do motorista, painel em tempo real e aviso no WhatsApp | React · Vite · Supabase Realtime · Baileys |
+| 🟢 | **Ocorrências · PB Plast** | Controle de ocorrências de entrega de uma distribuidora: acertos, devoluções, reentregas, trocas, cargas ao vivo do ERP e valor das perdas pelo custo, com conector Windows para o Oracle | Python · Flask · Supabase · Oracle (WinThor) |
 | 🔵 | **Pronto!** | Autoatendimento para lanchonetes: totem, PDV, cozinha (KDS), painel de senhas, Pix e NFC-e | React · Supabase Edge Functions · Mercado Pago |
 | 🟢 | **GestaoHub** | Operação de varejo em três camadas: app de validade e conferência, painel web de BI e BFF | React Native · React · Express · Supabase |
 | 🟢 | **[PazConcept](https://www.pazconcept.com.br)** | Site da PazConcept, com um universo de estrelas interativo em canvas | Next.js · Framer Motion |
@@ -47,6 +48,8 @@ Gosto de cuidar do produto inteiro: da marca e da interface até o banco de dado
 | **[Foteball-app](https://github.com/Danpazexe/Foteball-app)** | Jogo de gerência de futebol brasileiro estilo Brasfoot, com Séries A a D e mercado de transferências | React Native 0.86 · Reanimated 4 · op-sqlite · Zustand |
 | **[Comanda-app](https://github.com/Danpazexe/Comanda-app)** | Comandas para restaurante: mesas, pedidos, monitor de cozinha e relatórios | React Native · Firebase · Vite |
 | **Palavrix** | Jogo de adivinhação de palavras em português, estilo Termo | React Native · Lottie |
+| **Lobby** | Sede da PazConcept: escritório 2D em pixel art com os projetos e os agentes trabalhando ao vivo | TypeScript · Canvas 2D |
+| **Template SaaS** | Kit whitelabel para novos sistemas: autenticação, PWA e design system prontos (base do DietSpace) | Next.js 16 · Prisma · Auth.js · PWA |
 | **BrainVault** | Cérebro digital em Markdown versionado, com CLI, interface web, captura pelo Telegram e servidor MCP | Node.js · GitHub Actions · MCP |
 | **Central de Deploys** | Painel em tempo real dos meus projetos na Vercel: deploys, tempo de build, ping dos sites e vulnerabilidades | Next.js · APIs da Vercel e do GitHub |
 | **[ServidorPaz-infra](https://github.com/Danpazexe/ServidorPaz-infra)** | Servidor Minecraft Paper com plugins, datapacks e um plugin Java próprio | Java 17 · Gradle · Paper |
